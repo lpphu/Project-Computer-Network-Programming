@@ -1,6 +1,5 @@
 package src.main.java.View;
 
-import java.awt.Frame;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
