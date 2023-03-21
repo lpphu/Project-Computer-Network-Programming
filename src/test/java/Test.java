@@ -1,5 +1,5 @@
 package src.test.java;
-import src.main.java.Model.RailFence;
+import src.main.java.Middleware.RailFence;
 
 public class Test {
     public static void main(String[] args) throws Exception {

@@ -1,5 +1,5 @@
 package src.main.java.Controller;
 
-public class ControllerClient {
+public class BoxChat {
     
 }

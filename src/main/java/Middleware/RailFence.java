@@ -1,4 +1,4 @@
-package src.main.java.Model;
+package src.main.java.Middleware;
 public class RailFence {
     private String word;
     private int key;

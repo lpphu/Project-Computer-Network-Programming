@@ -1,4 +1,4 @@
 package src.main.java.Controller;
-public class ControllerMain {
+public class Home {
     
 }
