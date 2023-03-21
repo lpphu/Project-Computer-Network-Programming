@@ -1,5 +1,5 @@
 package src.main.java.View;
 
-public class ViewClient {
+public class RoomChat {
     
 }
