@@ -3,7 +3,7 @@ package src.test.java;
 
 import javax.swing.SwingUtilities;
 
-import src.main.java.View.ViewMain;
+import src.main.java.View.Home;
 
 /**
  * @author ashraf_sarhan
@@ -24,6 +24,6 @@ public class Main {
     }
  
     public static void createAndShowGUI() throws Exception {
-        new ViewMain();
+        new Home();
     }
 }

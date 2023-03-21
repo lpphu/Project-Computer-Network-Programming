@@ -7,8 +7,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class ViewMain {
-    public ViewMain() {
+public class Home {
+    public Home() {
         // Create views swing UI components
 
         /* Tạo Menu Bar */
