@@ -1,5 +1,6 @@
 package src.main.java.View;
 
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
@@ -10,6 +11,7 @@ import javax.swing.JMenuItem;
 public class Home {
     public Home() {
         // Create views swing UI components
+        JFrame mainFrame = new JFrame("Project-Final"); // Tạo frame
 
         /* Tạo Menu Bar */
         /* Tạo Menu */
@@ -39,9 +41,11 @@ public class Home {
         // Create controller
 
         // Set view layout
+        mainFrame.setSize(500,200);
+        mainFrame.setLayout(null);
+        mainFrame.setMinimumSize(new Dimension(500,200));
 
         // Display it all in scrolling window and make the window appear
-        JFrame mainFrame = new JFrame("Project-Final");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         accountMenu.add(logInItem);
         accountMenu.add(signInItem);
