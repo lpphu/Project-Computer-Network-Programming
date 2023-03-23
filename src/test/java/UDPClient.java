@@ -1,20 +1,22 @@
 package src.test.java;
 
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class UDPClient {
-    private String data;
-    private InetAddress inetAddress;
-    
-    public UDPClient(String data, InetAddress inetAddress){
-        this.data = data;
-        this.inetAddress = inetAddress;
+    public static void main(String[] args) throws IOException{
+        DatagramSocket socket = new DatagramSocket();
+
+        InetAddress ip = InetAddress.getByName("localhost");
+
+        String str = "xin chao";
+
+        DatagramPacket packet = new DatagramPacket(str.getBytes(), str.length(), ip, 3000);
+
+        socket.send(packet);
+
+        socket.close();
     }
-
-    public void sendMail(){
-        ThreadSend t1 = new ThreadSend(data, inetAddress);
-        t1.run();
-    }
-
-
 }
