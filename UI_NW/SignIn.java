@@ -14,19 +14,24 @@ public class SignIn extends JFrame {
         JPanel content = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         JLabel title = new javax.swing.JLabel();
+
         title.setLocation(0, 100);
         title.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         title.setText("Sign In");
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(10, 10, 10, 10);
+
         content.setBackground(new java.awt.Color(255, 255, 255));
         content.setForeground(new java.awt.Color(204, 204, 255));
         content.setBounds(width, height - 100, 0, 100);
+
         JLabel userName = new JLabel("Username");
         JLabel passWord = new JLabel("Password");
         JLabel NoAccount = new JLabel("No Account?");
+
         JButton SignUp = new JButton("Sign Up");
         SignUp.setBorder(null);
         SignUp.setBackground(new Color(255, 255, 255));
@@ -40,6 +45,7 @@ public class SignIn extends JFrame {
                 setVisible(false);
             }
         });
+
         JTextField userNameInput = new JTextField();
         JPasswordField passwordInput = new JPasswordField();
         userNameInput.setPreferredSize(new Dimension(width- 50, 40));
@@ -49,6 +55,7 @@ public class SignIn extends JFrame {
                 actionPerformed(evt);
             }
         });
+
         JButton btnSignIn = new JButton();
         btnSignIn.setBackground(new Color(51, 153, 255));
         btnSignIn.setForeground(new Color(255, 255, 255));
@@ -61,6 +68,7 @@ public class SignIn extends JFrame {
                 // actionPerformed(evt);
             }
         });
+        
         JPanel empty = new JPanel();
         empty.setBackground(new Color(255, 255, 255));
         JPanel empty2 = new JPanel();

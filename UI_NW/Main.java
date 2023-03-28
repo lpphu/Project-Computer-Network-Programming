@@ -4,6 +4,6 @@ public class Main {
         SignIn formSignIn = new SignIn();
         SignUp formSignUp = new SignUp();
         ChatRoom room = new ChatRoom("Server");
-        formSignUp.setVisible(true);
+        formSignIn.setVisible(true);
     }
 }
