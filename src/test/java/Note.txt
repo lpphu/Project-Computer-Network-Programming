@@ -1,3 +1,0 @@
-Main.java test view trong src main
-
-ThreadSend tạo luồng 
