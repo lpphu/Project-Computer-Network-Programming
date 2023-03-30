@@ -1,4 +1,4 @@
-package com.project.View_UI;
+package com.project.Views;
 
 import javax.print.DocFlavor.URL;
 import javax.swing.*;
@@ -25,7 +25,7 @@ public class ChatRoom extends JFrame {
         main.add(createMainContent(), gbc);
         gbc.gridy++;
         main.add(createFooter(), gbc);
-        this.setIconImage(Toolkit.getDefaultToolkit().createImage("Img/user.png"));
+        this.setIconImage(Toolkit.getDefaultToolkit().createImage("final/src/main/java/com/project/public/Img/user.png"));
         this.setSize(600, 700);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,7 +42,7 @@ public class ChatRoom extends JFrame {
         gbcHeader.gridy = 0;
         gbcHeader.anchor = GridBagConstraints.LINE_START;
 
-        Image image = Toolkit.getDefaultToolkit().createImage("Img/user.png");
+        Image image = Toolkit.getDefaultToolkit().createImage("final/src/main/java/com/project/public/Img/user.png");
         JPanel img = new ImagePanel(image);
         img.setPreferredSize(new Dimension(50, 40));
         header.add(img, gbcHeader);
@@ -74,23 +74,8 @@ public class ChatRoom extends JFrame {
         gbcFooter.anchor = GridBagConstraints.LINE_END;
 
         // enter key input
-        JPanel enterKey = new JPanel(new GridLayout(1, 2));
-        // JLabel keyLabel = new JLabel("Enter key");
-        // keyLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        // keyLabel.setPreferredSize(new Dimension(40, 40));
-        // enterKey.add(keyLabel);
 
-        JTextField sendKeyInput = new JTextField();
         Border borderInput = BorderFactory.createMatteBorder(10, 10, 10, 10, new Color(139, 119, 168));
-        sendKeyInput.setBorder(borderInput);
-        sendKeyInput.setBackground(new Color(139, 119, 168));
-        sendKeyInput.setPreferredSize(new Dimension(100, 40));
-        sendKeyInput.setFont(new Font("Arial", Font.BOLD, 18));
-        sendKeyInput.setForeground(new Color(255, 255, 255));
-        sendKeyInput.setMargin(new Insets(10, 10, 10, 10));
-        sendKeyInput.setText("0");
-        enterKey.add(sendKeyInput);
-        Footer.add(enterKey, gbcFooter);
 
         gbcFooter.gridy++;
         gbcFooter.gridx = 0;
@@ -98,11 +83,11 @@ public class ChatRoom extends JFrame {
         // enter option type data send
         JPanel optionTypeDataSend = new JPanel(new GridLayout(1, 6));
         optionTypeDataSend.setPreferredSize(new Dimension(100, 40));
-        JPanel sendImg = new ImagePanel(Toolkit.getDefaultToolkit().createImage("Img/img.png"));
+        JPanel sendImg = new ImagePanel(Toolkit.getDefaultToolkit().createImage("final/src/main/java/com/project/public/Img/img.png"));
         optionTypeDataSend.add(sendImg);
-        JPanel sendAudio = new ImagePanel(Toolkit.getDefaultToolkit().createImage("Img/audio.png"));
+        JPanel sendAudio = new ImagePanel(Toolkit.getDefaultToolkit().createImage("final/src/main/java/com/project/public/Img/audio.png"));
         optionTypeDataSend.add(sendAudio);
-        JPanel sendText = new ImagePanel(Toolkit.getDefaultToolkit().createImage("Img/text.png"));
+        JPanel sendText = new ImagePanel(Toolkit.getDefaultToolkit().createImage("final/src/main/java/com/project/public/Img/text.png"));
         optionTypeDataSend.add(sendText);
         optionTypeDataSend.setBorder(null);
         Footer.add(optionTypeDataSend, gbcFooter);

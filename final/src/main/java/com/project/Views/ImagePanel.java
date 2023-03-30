@@ -1,4 +1,4 @@
-package com.project.View_UI;
+package com.project.Views;
 
 import java.awt.Graphics;
 import java.awt.Image;

@@ -1,10 +1,17 @@
-package com.project.View_UI;
+package com.project.Views;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.*;
+
+import com.project.Controllers.UserController;
+import com.project.Core.ConnectDB;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.GraphicAttribute;
+
 
 
 public class SignUp extends JFrame {
@@ -14,6 +21,8 @@ public class SignUp extends JFrame {
 
     public SignUp() {
         JPanel content = new JPanel(new GridBagLayout());
+
+        JLabel notification = new javax.swing.JLabel();
         GridBagConstraints gbc = new GridBagConstraints();
         JLabel title = new javax.swing.JLabel();
         title.setLocation(0, 100);
@@ -46,6 +55,7 @@ public class SignUp extends JFrame {
                 actionPerformed(evt);
             }
         });
+        
         JButton signIn = new JButton("Sign In");
         signIn.setBorder(null);
         signIn.setBackground(new Color(255, 255, 255));
@@ -61,6 +71,8 @@ public class SignUp extends JFrame {
             }
         });
 
+        
+
         JButton btnSignUp = new JButton();
         btnSignUp.setBackground(new Color(51, 153, 255));
         btnSignUp.setForeground(new Color(255, 255, 255));
@@ -70,7 +82,12 @@ public class SignUp extends JFrame {
         btnSignUp.setPreferredSize(new Dimension(200 , 40));
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
+                String username = userNameInput.getText();
+                String password = new String(passwordInput.getPassword());
+                String confirmPassword = new String(confirmPassInput.getPassword());
+                UserController controlUser = new UserController();
+                String mes = controlUser.signUp(username, password, confirmPassword);
+                notification.setText(mes);
             }
         });
         JPanel empty = new JPanel();
@@ -96,6 +113,13 @@ public class SignUp extends JFrame {
         content.add(confirmPassInput, gbc);
         gbc.gridy ++;
         content.add(empty, gbc);
+        // /
+        notification.setFont(new java.awt.Font("Segoe UI", 0, 12)); 
+        notification.setForeground(new Color(214, 12, 69)); 
+        notification.setText("");
+        gbc.weighty = 0;
+        content.add(notification, gbc);
+        // 
         gbc.weighty = 0;
         gbc.gridy ++;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -120,8 +144,10 @@ public class SignUp extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.add(mainPanel);
-    }        
-  
-
+    }
+    
+    
 }
+
+
 

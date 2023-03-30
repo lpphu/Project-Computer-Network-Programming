@@ -1,6 +1,7 @@
-package com.project.ConnectDB;
+package com.project.Core;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
  
@@ -9,7 +10,7 @@ public class ConnectDB {
     private Connection conn = null;
 
     // Các phương thức
-    private static String DB_URL = "jdbc:mysql://localhost:3306/test";
+    private static String DB_URL = "jdbc:mysql://localhost:3306/chat-app";
     private static String USER_NAME = "root";
     private static String PASSWORD = "";
 
@@ -40,5 +41,9 @@ public class ConnectDB {
     // Ngừng sử dụng database
     public void closeConnection() throws Exception{
         conn.close();
+    }
+
+    public PreparedStatement prepareStatement(String sql) {
+        return null;
     }
 }

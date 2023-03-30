@@ -1,9 +1,10 @@
-package com.project.View_UI;
+package com.project.Views;
 
 import javax.swing.*;
 
-import com.project.ConnectDB.ConnectDB;
-import com.project.Model.Account;
+import com.project.Controllers.UserController;
+import com.project.Core.ConnectDB;
+import com.project.Model.User;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,20 +17,21 @@ public class SignIn extends JFrame {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int width = this.screenSize.width / 3;
     private int height = this.screenSize.height / 3 * 2;
+    private JButton btnSignIn ;
 
     public SignIn() {
         // Lưu thông tin account
-
+        JLabel notification = new javax.swing.JLabel();
         JPanel content = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        JLabel title = new javax.swing.JLabel();
 
+        JLabel title = new javax.swing.JLabel();
         title.setLocation(0, 100);
         title.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         title.setText("Sign In");
 
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 0 ;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(10, 10, 10, 10);
 
@@ -69,27 +71,13 @@ public class SignIn extends JFrame {
         btnSignIn.setPreferredSize(new Dimension(200 , 40));
         btnSignIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                System.out.println(passWord.getText());
-                try {
-                    Boolean flag = false;
-                    ConnectDB conn = new ConnectDB();
-                    // System.out.println(String(passwordInput.getPassword()));
-                    ResultSet rs = conn.executeQuery("select * from account");
-                    while(rs.next()){
-                        if (rs.getString(2).equals(userNameInput.getText()) && rs.getString(3).equals(new String(passwordInput.getPassword()))){
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if (flag){
-                        ChatRoom room = new ChatRoom(userNameInput.getText());
-                        room.setVisible(true);
-                    }
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                String username = userNameInput.getText();
+                String password = new String(passwordInput.getPassword());
+                UserController controlUser = new UserController();
+                String mes = controlUser.SignIn(username, password);
+                notification.setText(mes);
             }
+
         });
         
         JPanel empty = new JPanel();
@@ -111,10 +99,21 @@ public class SignIn extends JFrame {
         content.add(passwordInput, gbc);
         gbc.gridy ++;
         content.add(empty, gbc);
+        gbc.gridy ++;
+        // 
+        notification.setFont(new java.awt.Font("Segoe UI", 0, 12)); 
+        notification.setForeground(new Color(214, 12, 69)); 
+        notification.setText("");
+        gbc.gridx = 0;
+        gbc.gridy ++;
+        gbc.anchor = GridBagConstraints.LINE_START;
+        content.add(notification, gbc);
+        // 
         gbc.weighty = 0;
         gbc.gridy ++;
         gbc.anchor = GridBagConstraints.CENTER;
         content.add(btnSignIn, gbc);
+        
         gbc.gridy ++;
         gbc.anchor = GridBagConstraints.LINE_END;
         JPanel changeOption = new JPanel(new GridBagLayout());
@@ -136,5 +135,14 @@ public class SignIn extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(mainPanel);
     }        
+
+    public JButton getBtnSignIn() {
+        return this.btnSignIn;
+    }
+
+    public void setBtnSignIn(JButton btnSignIn) {
+        this.btnSignIn = btnSignIn;
+    }
+
 }
 
