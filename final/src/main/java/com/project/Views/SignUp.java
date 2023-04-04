@@ -10,7 +10,6 @@ import com.project.Core.ConnectDB;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.GraphicAttribute;
 
 
 
@@ -18,6 +17,7 @@ public class SignUp extends JFrame {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int width = this.screenSize.width / 3;
     private int height = this.screenSize.height / 3 * 2;
+    private JPanel screen ;
 
     public SignUp() {
         JPanel content = new JPanel(new GridBagLayout());
@@ -65,12 +65,17 @@ public class SignUp extends JFrame {
 
         signIn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(getScreen());
+                // getMainFrame().setVisible(false);
+                frame.setResizable(true);
                 SignIn formSignIn = new SignIn();
-                formSignIn.setVisible(true);
-                setVisible(false);
+                frame.remove(getScreen());
+                frame.add(formSignIn.getScreen());
+                setScreen(formSignIn.getScreen());
+                frame.revalidate();
+                frame.repaint();
             }
         });
-
         
 
         JButton btnSignUp = new JButton();
@@ -117,7 +122,8 @@ public class SignUp extends JFrame {
         notification.setFont(new java.awt.Font("Segoe UI", 0, 12)); 
         notification.setForeground(new Color(214, 12, 69)); 
         notification.setText("");
-        gbc.weighty = 0;
+        // notification.setPreferredSize(new Dimension(200 , 40));
+        gbc.gridy ++;
         content.add(notification, gbc);
         // 
         gbc.weighty = 0;
@@ -136,14 +142,26 @@ public class SignUp extends JFrame {
         changeOption.add(signIn, gbc2);
         content.add(changeOption, gbc);
         
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(content, BorderLayout.CENTER);
+        this.screen = new JPanel(new BorderLayout());
+        this.screen.add(content, BorderLayout.CENTER);
         
-        this.setSize(600, 600);
+        this.setSize(1000, 700);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.add(mainPanel);
+        this.add(this.screen);
+    }
+
+    public JFrame getMainFrame() {
+        return this;
+    }
+
+    public JPanel getScreen() {
+        return screen;
+    }
+
+    public void setScreen(JPanel screen) {
+        this.screen = screen;
     }
     
     

@@ -2,9 +2,11 @@ package com.project.Views;
 
 import javax.swing.*;
 
-import com.project.Controllers.UserController;
+import com.project.Controllers.*;
+import com.project.Component.*;
 import com.project.Core.ConnectDB;
 import com.project.Model.User;
+import com.project.Views.ChatRoom.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,7 @@ public class SignIn extends JFrame {
     private int width = this.screenSize.width / 3;
     private int height = this.screenSize.height / 3 * 2;
     private JButton btnSignIn ;
+    private JPanel screen ;
 
     public SignIn() {
         // Lưu thông tin account
@@ -51,9 +54,14 @@ public class SignIn extends JFrame {
         SignUp.setForeground(new Color(224, 67, 28));
         SignUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(getScreen());
                 SignUp formSignUp = new SignUp();
-                formSignUp.setVisible(true);
-                setVisible(false);
+                frame.setResizable(true);
+                frame.remove(getScreen());
+                frame.add(formSignUp.getScreen());
+                setScreen(formSignUp.getScreen());
+                frame.revalidate();
+                frame.repaint();
             }
         });
 
@@ -74,8 +82,28 @@ public class SignIn extends JFrame {
                 String username = userNameInput.getText();
                 String password = new String(passwordInput.getPassword());
                 UserController controlUser = new UserController();
-                String mes = controlUser.SignIn(username, password);
-                notification.setText(mes);
+                Response res = controlUser.SignIn(username, password);
+                System.out.println(res.toString());
+                Account acc =  (Account) res.getData();
+                if(res.getStatus() == false) {
+                    notification.setText(res.getMessage());
+                }
+                else if(acc.getIsAdmin() == true) {
+                    JPanel mainContent = new JPanel(new GridBagLayout());
+                    mainContent.setBackground(new Color(99,104,108));
+                    AdminPage adminPage = new AdminPage();
+                    mainContent.add(adminPage.getScreen());
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(getScreen());
+                    frame.remove(getScreen());
+                    frame.add(mainContent);
+                    frame.revalidate();
+                    frame.repaint();
+                }else {
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(getScreen());
+                    frame.setVisible(false);
+                    ChatRoom room = new ChatRoom(username);
+                    room.setVisible(true);
+                }
             }
 
         });
@@ -126,15 +154,26 @@ public class SignIn extends JFrame {
         changeOption.add(SignUp, gbc2);
         content.add(changeOption, gbc);
         
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(content, BorderLayout.CENTER);
+        this.screen = new JPanel(new BorderLayout());
+        screen.add(content, BorderLayout.CENTER);
         
-        this.setSize(600, 600);
+        this.setSize(1000, 700);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.add(mainPanel);
+        this.add(this.screen);
     }        
+
+    public JFrame getMainFrame() {
+        return this;
+    }
+
+    public JPanel getScreen() {
+        return this.screen;
+    }
+    public void setScreen(JPanel screen) {
+        this.screen = screen;
+    }
 
     public JButton getBtnSignIn() {
         return this.btnSignIn;

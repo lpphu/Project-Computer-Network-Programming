@@ -1,4 +1,5 @@
 package com.project.Controllers;
+import com.project.Component.*;
 import java.awt.Frame;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,13 +12,12 @@ import com.project.Views.*;
 
 public class UserController {
     
-    public String SignIn(String username, String password) {
-
+    public Response SignIn(String username, String password) {
         if( username.equals("") ) {
-            return "Username not empty!!";
+            return new Response(false, "Username not empty!!", null);
         }
         if( password.equals("") ) {
-            return "Password not empty!!";
+            return new Response(false, "Password not empty!!", null);
         }
 
         try {
@@ -26,24 +26,16 @@ public class UserController {
             ResultSet user = conn.executeQuery("select * from users");
             while(user.next()){
                 if (user.getString(2).equals(username) && user.getString(3).equals(password)){
-                    result = true;
-                    break;
-                }else {
-                    return "Username or passwordd incorrect!!";
+                    LoginPreferences login = new LoginPreferences();
+                    login.saveUsername(username);
+                    return new Response(true, "Login sucessfully!!", new Account(user.getString(2), user.getString(3), user.getBoolean(4)));
                 }
             }
-            if (result){
-                this.closeAllFrameInScreen();
-                ChatRoom room = new ChatRoom(username);
-                room.setVisible(true);
-                // screen.setVisible(false);
-                return "";
-            }
+            return new Response(false, "Username or passwordd incorrect!!", null);
         } catch (Exception e) {
             e.printStackTrace();
-            return "Err!!";
+            return new Response(false, "Err!!", null);
         }
-        return password;
     }
 
     public String signUp(String username , String password , String confirmPassword ) {
@@ -54,11 +46,11 @@ public class UserController {
             notification = "Username is not empty!!";
             run = false;
         }
-        if(password.equals("") ) {
+        if(password.equals("") && run != false ) {
             notification = "password is not empty!!";
             run = false;
         }
-        if(confirmPassword.equals("") ) {
+        if(confirmPassword.equals("") && run != false ) {
             notification = "confirmPassword is not empty!!";
             run = false;
         }
@@ -78,8 +70,8 @@ public class UserController {
                 if (result == 1) {
                     notification = "User created successfully!!";
                     this.closeAllFrameInScreen();
-                    ChatRoom room = new ChatRoom(username);
-                    room.setVisible(true);
+                    // ChatRoom room = new ChatRoom(username);
+                    // room.setVisible(true);
                 } else {
                     notification = "User created fail!!";
                 }
@@ -96,9 +88,6 @@ public class UserController {
         
     }
 
-    public void SignOut(String username, String password) {
-
-    }
 
 
     public void closeAllFrameInScreen() {
