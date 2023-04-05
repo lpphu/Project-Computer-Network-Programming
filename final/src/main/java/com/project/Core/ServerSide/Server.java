@@ -5,6 +5,8 @@ import com.project.Views.LogMessageFromClient;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -94,5 +96,12 @@ public class Server implements Runnable {
         }
     }
 
+    public void receiveFileFromClient() throws IOException {
+       
+    }
+    
+    
     
 }
+
+

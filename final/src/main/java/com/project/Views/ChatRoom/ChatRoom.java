@@ -6,7 +6,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Random;
 
@@ -184,6 +187,17 @@ public class ChatRoom extends javax.swing.JFrame {
         jButton2.setRequestFocusEnabled(false);
         jButton2.setRolloverEnabled(false);
         jButton2.setVerifyInputWhenFocusTarget(false);
+        jButton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    sendFile();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+        });
+        
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -330,5 +344,36 @@ public class ChatRoom extends javax.swing.JFrame {
         mes.setText(send);
         jPanel4.setLayout(new BoxLayout(jPanel4, BoxLayout.PAGE_AXIS));
         jPanel4.add(mes, BorderLayout.PAGE_END);
+    }
+    public void sendFile() throws IOException {
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            byte[] buffer = new byte[1024];
+            buffer = this.getFileBytes(file);
+            String nameFile = file.getName();
+            String fileName = "../../File/" + nameFile;
+            this.client.sendFile(fileName);
+            JOptionPane.showMessageDialog(this, "File sent.");
+        }
+    }
+
+    public byte[] getFileBytes(File file) throws IOException {
+        byte[] buffer = new byte[(int) file.length()];
+        InputStream ios = null;
+        try {
+            ios = new FileInputStream(file);
+            if (ios.read(buffer) == -1) {
+                throw new IOException("EOF reached while trying to read the whole file");
+            }
+        } finally {
+            try {
+                if (ios != null)
+                    ios.close();
+            } catch (IOException e) {
+            }
+        }
+        return buffer;
     }
 }

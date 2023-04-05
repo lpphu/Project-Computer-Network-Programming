@@ -86,7 +86,7 @@ public class Client {
     public void setSendData(byte[] sendData) {
         this.sendData = sendData;
     }
-    public void sendFile(String fileName, DatagramSocket socket, InetAddress address, int port) throws IOException { // Đọc dữ liệu của file vào một mảng byte
+    public void sendFile(String fileName) throws IOException {
         File file = new File(fileName);
         byte[] buffer = new byte[(int) file.length()];
         FileInputStream fis = new FileInputStream(file);
@@ -101,9 +101,10 @@ public class Client {
             byte[] packetData = new byte[length];
             System.arraycopy(buffer, offset, packetData, 0, length);
     
-            DatagramPacket packet = new DatagramPacket(packetData, length, address, port);
-            socket.send(packet);
+            DatagramPacket packet = new DatagramPacket(packetData, length, this.IPAddress, this.port);
+            clientSocket.send(packet);
         }
     }
+    
     
 }
