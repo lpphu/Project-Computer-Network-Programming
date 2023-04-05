@@ -28,7 +28,7 @@ public class UserController {
                 if (user.getString(2).equals(username) && user.getString(3).equals(password)){
                     LoginPreferences login = new LoginPreferences();
                     login.saveUsername(username);
-                    return new Response(true, "Login sucessfully!!", new Account(user.getString(2), user.getString(3), user.getBoolean(4)));
+                    return new Response(true, "Login sucessfully!!", new Account(user.getString(2), user.getString(3), user.getBoolean(4), user.getInt(1)));
                 }
             }
             return new Response(false, "Username or passwordd incorrect!!", null);
@@ -76,10 +76,6 @@ public class UserController {
                     notification = "User created fail!!";
                 }
             }
-            
-
-          
-
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -87,6 +83,21 @@ public class UserController {
         return notification;
         
     }
+    public static String getNameUser(int id) {
+        String name = "";
+        try {
+            System.out.println(id);
+            ConnectDB conn = new ConnectDB();
+            ResultSet user = conn.executeQuery("SELECT username FROM users WHERE id = '" + id + "'");
+            if (user.next()) {
+                name = user.getString("username");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
+    
 
 
 

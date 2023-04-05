@@ -4,11 +4,20 @@ public class Account {
     private String username;
     private String password;
     private Boolean isAdmin;
+    private int userId;
 
-    public Account(String username, String password, Boolean isAdmin) {
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    public Account(String username, String password, Boolean isAdmin, int userId) {
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.userId = userId;
+        
     }
     public String getUsername() {
         return username;
@@ -37,7 +46,7 @@ public class Account {
         return "Account{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", isAdmin=" + isAdmin +
+                ", isAdmin=" + isAdmin + ",userId='" + userId + '\'' +
                 '}';
     }
 }

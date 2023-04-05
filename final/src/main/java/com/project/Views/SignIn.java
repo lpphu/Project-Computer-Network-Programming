@@ -21,6 +21,15 @@ public class SignIn extends JFrame {
     private int height = this.screenSize.height / 3 * 2;
     private JButton btnSignIn ;
     private JPanel screen ;
+    private boolean isAdmin = false;
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
     public SignIn() {
         // Lưu thông tin account
@@ -85,24 +94,17 @@ public class SignIn extends JFrame {
                 Response res = controlUser.SignIn(username, password);
                 System.out.println(res.toString());
                 Account acc =  (Account) res.getData();
+
                 if(res.getStatus() == false) {
                     notification.setText(res.getMessage());
                 }
-                else if(acc.getIsAdmin() == true) {
-                    JPanel mainContent = new JPanel(new GridBagLayout());
-                    mainContent.setBackground(new Color(99,104,108));
-                    AdminPage adminPage = new AdminPage();
-                    mainContent.add(adminPage.getScreen());
+                else {
                     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(getScreen());
-                    frame.remove(getScreen());
-                    frame.add(mainContent);
-                    frame.revalidate();
-                    frame.repaint();
-                }else {
-                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(getScreen());
-                    frame.setVisible(false);
-                    ChatRoom room = new ChatRoom(username);
-                    room.setVisible(true);
+                    SelectOptionSignIn signInAs = new SelectOptionSignIn();
+                    signInAs.setAccount(acc);
+                    signInAs.setFrame(frame);
+                    signInAs.setVisible(true);
+                    signInAs.setScreen(getScreen());
                 }
             }
 
@@ -182,6 +184,5 @@ public class SignIn extends JFrame {
     public void setBtnSignIn(JButton btnSignIn) {
         this.btnSignIn = btnSignIn;
     }
-
 }
 

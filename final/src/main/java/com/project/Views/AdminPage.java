@@ -5,10 +5,8 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.net.SocketException;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import com.project.Core.ServerSide.*;
+import javax.swing.*;
 
 public class AdminPage extends javax.swing.JFrame {
     private boolean isRun = false;
@@ -29,14 +27,18 @@ public class AdminPage extends javax.swing.JFrame {
     public void setRun(boolean isRun) {
         this.isRun = isRun;
     }
-
-    /**
-     * Creates new form AdminPage
-     */
+   
     public AdminPage() {
         initComponents();
     }
-
+    public boolean isNumeric(String str) {
+        try {
+          double d = Double.parseDouble(str);
+        } catch(NumberFormatException nfe) {
+          return false;
+        }
+        return true;
+     }
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
@@ -47,6 +49,7 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnManagerUser3 = new javax.swing.JButton();
         btnManagerUser4 = new javax.swing.JButton();
+        btnManagerUser9 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -57,18 +60,12 @@ public class AdminPage extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         MainUserOnline = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        btnManagerUser2 = new javax.swing.JButton();
-        btnManagerUser1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        btnManagerUser5 = new javax.swing.JButton();
-        btnManagerUser6 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        btnManagerUser7 = new javax.swing.JButton();
-        btnManagerUser8 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         portInput = new javax.swing.JTextField();
@@ -121,12 +118,31 @@ public class AdminPage extends javax.swing.JFrame {
             }
         });
 
+        btnManagerUser9.setBackground(new java.awt.Color(65, 151, 232));
+        btnManagerUser9.setForeground(new java.awt.Color(255, 255, 255));
+        btnManagerUser9.setText("Log Messages From Client");
+        btnManagerUser9.setBorderPainted(false);
+        btnManagerUser9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogMessageFromClient logChat;
+                try {
+                    logChat = new LogMessageFromClient();
+                    logChat.setVisible(true);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnManagerUser9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnManagerUser3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnManagerUser4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -138,7 +154,8 @@ public class AdminPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnManagerUser4)
-                    .addComponent(btnManagerUser3))
+                    .addComponent(btnManagerUser3)
+                    .addComponent(btnManagerUser9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4))
         );
@@ -171,7 +188,6 @@ public class AdminPage extends javax.swing.JFrame {
         labelStatus.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelStatus.setForeground(new java.awt.Color(36, 226, 78));
         labelStatus.setText("off");
-        noActive(labelStatus);
 
         Title3.setBackground(new java.awt.Color(215, 86, 86));
         Title3.setForeground(new java.awt.Color(255, 255, 255));
@@ -218,24 +234,6 @@ public class AdminPage extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(109, 132, 129));
 
-        btnManagerUser2.setBackground(new java.awt.Color(232, 65, 95));
-        btnManagerUser2.setForeground(new java.awt.Color(255, 255, 255));
-        btnManagerUser2.setText("Block");
-        btnManagerUser2.setBorderPainted(false);
-        btnManagerUser2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            }
-        });
-
-        btnManagerUser1.setBackground(new java.awt.Color(65, 151, 232));
-        btnManagerUser1.setForeground(new java.awt.Color(255, 255, 255));
-        btnManagerUser1.setText("Chat");
-        btnManagerUser1.setBorderPainted(false);
-        btnManagerUser1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("User 1");
@@ -260,45 +258,22 @@ public class AdminPage extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(50, 50, 50)
-                .addComponent(btnManagerUser1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnManagerUser2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 704, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 904, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnManagerUser2)
-                .addComponent(btnManagerUser1)
-                .addComponent(jLabel3))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(109, 132, 129));
-
-        btnManagerUser5.setBackground(new java.awt.Color(232, 65, 95));
-        btnManagerUser5.setForeground(new java.awt.Color(255, 255, 255));
-        btnManagerUser5.setText("Block");
-        btnManagerUser5.setBorderPainted(false);
-        btnManagerUser5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            }
-        });
-
-        btnManagerUser6.setBackground(new java.awt.Color(65, 151, 232));
-        btnManagerUser6.setForeground(new java.awt.Color(255, 255, 255));
-        btnManagerUser6.setText("Chat");
-        btnManagerUser6.setBorderPainted(false);
-        btnManagerUser6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -324,10 +299,6 @@ public class AdminPage extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addGap(50, 50, 50)
-                .addComponent(btnManagerUser6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnManagerUser5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -336,10 +307,7 @@ public class AdminPage extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnManagerUser5)
-                        .addComponent(btnManagerUser6)
-                        .addComponent(jLabel5))
+                    .addComponent(jLabel5)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -347,24 +315,6 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         jPanel9.setBackground(new java.awt.Color(109, 132, 129));
-
-        btnManagerUser7.setBackground(new java.awt.Color(232, 65, 95));
-        btnManagerUser7.setForeground(new java.awt.Color(255, 255, 255));
-        btnManagerUser7.setText("Block");
-        btnManagerUser7.setBorderPainted(false);
-        btnManagerUser7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            }
-        });
-
-        btnManagerUser8.setBackground(new java.awt.Color(65, 151, 232));
-        btnManagerUser8.setForeground(new java.awt.Color(255, 255, 255));
-        btnManagerUser8.setText("Chat");
-        btnManagerUser8.setBorderPainted(false);
-        btnManagerUser8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -390,10 +340,6 @@ public class AdminPage extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addGap(50, 50, 50)
-                .addComponent(btnManagerUser8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnManagerUser7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -402,10 +348,7 @@ public class AdminPage extends javax.swing.JFrame {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnManagerUser7)
-                        .addComponent(btnManagerUser8)
-                        .addComponent(jLabel6))
+                    .addComponent(jLabel6)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -517,39 +460,20 @@ public class AdminPage extends javax.swing.JFrame {
         getContentPane().add(Screen);
 
         pack();
-    }
+    }// </editor-fold>                        
+
+                                             
+
+    
 
     // Variables declaration - do not modify                     
     private javax.swing.JPanel Content;
     private javax.swing.JPanel MainUserOnline;
     private javax.swing.JPanel Screen;
-    public javax.swing.JPanel getScreen() {
-        return Screen;
-    }
-
-    public void setScreen(javax.swing.JPanel screen) {
-        Screen = screen;
-    }
-    public boolean isNumeric(String str) {
-        try {
-          double d = Double.parseDouble(str);
-        } catch(NumberFormatException nfe) {
-          return false;
-        }
-        return true;
-     }
-     
-    
-
     private javax.swing.JButton Title3;
-    private javax.swing.JButton btnManagerUser1;
-    private javax.swing.JButton btnManagerUser2;
     private javax.swing.JButton btnManagerUser3;
     private javax.swing.JButton btnManagerUser4;
-    private javax.swing.JButton btnManagerUser5;
-    private javax.swing.JButton btnManagerUser6;
-    private javax.swing.JButton btnManagerUser7;
-    private javax.swing.JButton btnManagerUser8;
+    private javax.swing.JButton btnManagerUser9;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -570,8 +494,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JLabel labelStatus1;
     private javax.swing.JPanel line;
     private javax.swing.JTextField portInput;
-    // End of variables declaration   
-
+    // End of variables declaration    
     public void runServer() throws Exception {
         Thread serverThread ;
         if( portInput.getText().equals("") == true ) {
@@ -600,11 +523,18 @@ public class AdminPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please enter a valid port number");
         }
     }   
-    
     public void noActive(JLabel item) {
         item.setForeground(Color.red);
     }
     public void active(JLabel item) {
         item.setForeground(Color.green);
     }
+    public javax.swing.JPanel getScreen() {
+        return Screen;
+    }
+
+    public void setScreen(javax.swing.JPanel screen) {
+        Screen = screen;
+    }
 }
+
