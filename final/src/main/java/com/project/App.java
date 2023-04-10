@@ -13,10 +13,11 @@ import com.project.Views.*;
 public class App {
     public static void main( String[] args )
     {
-        Home home = new Home();
+        // Home home = new Home();
+        SignIn home = new SignIn();
         home.setLocationRelativeTo(null);
         home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         home.setVisible(true);
-
+        
     }
 }

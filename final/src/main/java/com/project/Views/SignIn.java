@@ -6,7 +6,7 @@ import com.project.Controllers.*;
 import com.project.Component.*;
 import com.project.Core.ConnectDB;
 import com.project.Model.User;
-import com.project.Views.ChatRoom.*;
+import com.project.Views.ChatRoomServer.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,8 +17,8 @@ import java.sql.ResultSet;
 
 public class SignIn extends JFrame {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private int width = this.screenSize.width / 3;
-    private int height = this.screenSize.height / 3 * 2;
+    private int width = this.screenSize.width / 5;
+    private int height = this.screenSize.height / 5 * 2;
     private JButton btnSignIn ;
     private JPanel screen ;
     private boolean isAdmin = false;
@@ -100,13 +100,22 @@ public class SignIn extends JFrame {
                 }
                 else {
                     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(getScreen());
-                    SelectOptionSignIn signInAs = new SelectOptionSignIn();
-                    signInAs.setAccount(acc);
-                    signInAs.setFrame(frame);
-                    signInAs.setVisible(true);
-                    signInAs.setScreen(getScreen());
+                    // SelectOptionSignIn signInAs = new SelectOptionSignIn();
+                    // signInAs.setAccount(acc);
+                    // signInAs.setFrame(frame);
+                    // signInAs.setVisible(true);
+                    // signInAs.setScreen(getScreen());
+                    try {
+                        signIn(acc, frame);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    
                 }
             }
+
+           
 
         });
         
@@ -159,7 +168,7 @@ public class SignIn extends JFrame {
         this.screen = new JPanel(new BorderLayout());
         screen.add(content, BorderLayout.CENTER);
         
-        this.setSize(1000, 700);
+        this.setSize(500, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
@@ -183,6 +192,18 @@ public class SignIn extends JFrame {
 
     public void setBtnSignIn(JButton btnSignIn) {
         this.btnSignIn = btnSignIn;
+    }
+
+    public void signIn(Account account, JFrame frame) throws Exception {
+        if(account.getIsAdmin() == false)   {
+            frame.setVisible(false);
+            HomeOptionChat room = new HomeOptionChat( account.getUsername(), account.getUserId());
+            System.out.println(account.toString());
+            room.setVisible(true);
+        }else {
+            System.out.println("User not found");
+            JOptionPane.showMessageDialog(null, "User not found", "title", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
 

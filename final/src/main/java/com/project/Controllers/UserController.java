@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.project.Core.ConnectDB;
 import com.project.Views.*;
@@ -25,9 +26,7 @@ public class UserController {
             ConnectDB conn = new ConnectDB();
             ResultSet user = conn.executeQuery("select * from users");
             while(user.next()){
-                if (user.getString(2).equals(username) && user.getString(3).equals(password)){
-                    LoginPreferences login = new LoginPreferences();
-                    login.saveUsername(username);
+                if (user.getString(2).equals(username) && HashPass.checkPassword(password, user.getString(3)) ){
                     return new Response(true, "Login sucessfully!!", new Account(user.getString(2), user.getString(3), user.getBoolean(4), user.getInt(1)));
                 }
             }
@@ -54,6 +53,10 @@ public class UserController {
             notification = "confirmPassword is not empty!!";
             run = false;
         }
+        if(password.equals(confirmPassword) != true ) {
+            notification = "Password and confirm password is not match!!";
+            run = false;
+        }
         try {
             ConnectDB conn = new ConnectDB();
             ResultSet user = conn.executeQuery("select * from users where username = '" + username +"'" );
@@ -66,12 +69,14 @@ public class UserController {
                 run = false;
             }
             if (run) {
-                int result = conn.executeUpdate("INSERT INTO USERS (`username`, `password`) VALUES('" + username + "','" + password + "')");
+                
+                int result = conn.executeUpdate("INSERT INTO USERS (`username`, `password`) VALUES('" + username + "','" + HashPass.hashPassword(password) + "')");
                 if (result == 1) {
                     notification = "User created successfully!!";
                     this.closeAllFrameInScreen();
-                    // ChatRoom room = new ChatRoom(username);
-                    // room.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "User created successfully!!");
+                    SignIn sg = new SignIn();
+                    sg.setVisible(true);
                 } else {
                     notification = "User created fail!!";
                 }

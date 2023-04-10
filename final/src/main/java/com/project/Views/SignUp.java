@@ -15,8 +15,8 @@ import java.awt.event.ActionListener;
 
 public class SignUp extends JFrame {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private int width = this.screenSize.width / 3;
-    private int height = this.screenSize.height / 3 * 2;
+    private int width = this.screenSize.width / 5;
+    private int height = this.screenSize.height / 5 * 2;
     private JPanel screen ;
 
     public SignUp() {
